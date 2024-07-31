@@ -1,0 +1,43 @@
+# This is an example of data_config.yaml
+
+# data_preprocessors
+data_preprocessor_name: ETTDataPreprocessor
+data_preprocessor_params:
+  data_path: data/regression_dataset/ETTm1/ETTm1.csv
+  train_ratio: 0.2
+  valid_ratio: 0.05
+  steps_per_day: 96
+  history_len: 60
+  forecast_len: 48
+  add_feature_time_of_day: True
+  add_feature_day_of_week: True
+  add_feature_day_of_month: True
+  add_feature_day_of_year: True
+
+# Scaler
+scaler_name: StandardScaler
+scaler_params:
+  mean: 0
+  std: 1
+
+# Dataset
+dataset_name: ODGNetDataset
+dataset_params:
+  {}
+
+dataloader_params:
+  train:
+    shuffle: True
+    num_workers: 0
+    pin_memory: True
+    drop_last: True
+  valid:
+    shuffle: False
+    num_workers: 0
+    pin_memory: True
+    drop_last: False
+  test:
+    shuffle: False
+    num_workers: 0
+    pin_memory: True
+    drop_last: False

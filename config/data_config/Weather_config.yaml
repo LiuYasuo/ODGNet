@@ -1,0 +1,45 @@
+# This is an example of data_config.yaml
+
+# data_preprocessors
+data_preprocessor_name: WeatherDataPreprocessor
+data_preprocessor_params:
+  data_path: data/WTH.csv
+  #adj_mx_path: None
+  steps_per_day: 24
+  train_ratio: 0.2
+  valid_ratio: 0.05
+  history_len: 60
+  forecast_len: 1
+  add_feature_time_of_day: True
+  add_feature_day_of_week: True
+  add_feature_day_of_month: True
+  add_feature_day_of_year: True
+
+
+# Scaler
+scaler_name: StandardScaler
+scaler_params:
+  mean: 0
+  std: 1
+
+# Dataset
+dataset_name: ODGNetDataset
+dataset_params:
+  {}
+
+dataloader_params:
+  train:
+    shuffle: True
+    num_workers: 0
+    pin_memory: True
+    drop_last: True
+  valid:
+    shuffle: False
+    num_workers: 0
+    pin_memory: True
+    drop_last: False
+  test:
+    shuffle: False
+    num_workers: 0
+    pin_memory: True
+    drop_last: False

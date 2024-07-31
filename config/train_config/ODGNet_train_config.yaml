@@ -1,0 +1,36 @@
+#This is an example of train_config.yaml
+
+# basic
+random_seed: 1
+batch_size: 10
+test_bsz: 1
+device: cuda:0
+load_checkpoint: False
+
+# Optimizer
+optimizer_name: AdamW
+optimizer_params:
+  lr: 0.001
+
+# Scheduler
+scheduler_name: StepLR
+scheduler_params:
+  step_size: 400
+  gamma: 0.3
+
+# Trainer
+trainer_name: ODGNetTrainer
+trainer_params:
+  resume: False
+  max_epoch_num: 6
+  early_stop_patience: 3
+  enable_early_stop: True
+  train_FSNET_epochs: 6
+  inverse: False
+  lradj: 'type1'
+  learning_rate: 0.001
+  online_learning: 'full'
+  n_inner: 1
+
+
+

@@ -1,0 +1,13 @@
+odgnet:
+   num_nodes: 12
+   in_dim: 5
+   residual_channels: 64
+   dilation_channels: 64
+   skip_channels: 256
+   end_channels: 512
+   emb_channels: 16
+   blocks: 4
+   layers: 4
+   dropout: 0.3
+   gamma: 0.9
+   device: "cuda:0"
