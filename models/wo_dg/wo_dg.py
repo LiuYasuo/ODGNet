@@ -69,7 +69,7 @@ class TSEncoder(nn.Module):
 
 class wo_dg(nn.Module):
     def __init__(self, num_nodes, adj_mx, history_len, in_dim, out_dim, residual_channels, dilation_channels,
-                 skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device):
+                 skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device, steps_per_day):
         super().__init__()
         self.device = device
         if adj_mx != None:
