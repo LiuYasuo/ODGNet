@@ -80,9 +80,9 @@ def main(args):
 
     # dataset
     dataset_class = getattr(sys.modules["datasets"], data_config["dataset_name"])
-    train_dataset = dataset_class(train_data, type="train", **updated_dataset_params)
-    valid_dataset = dataset_class(valid_data, type="valid", **updated_dataset_params)
-    test_dataset = dataset_class(test_data, type="test", **updated_dataset_params)
+    train_dataset = dataset_class(train_data, **updated_dataset_params)
+    valid_dataset = dataset_class(valid_data, **updated_dataset_params)
+    test_dataset = dataset_class(test_data, **updated_dataset_params)
     train_dataloader = DataLoader(
         train_dataset, batch_size=batch_size, **data_config["dataloader_params"]["train"]
     )
