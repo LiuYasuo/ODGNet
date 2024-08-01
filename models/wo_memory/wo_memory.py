@@ -33,10 +33,10 @@ class TempoEnc(nn.Module):
 
 class timestamp(nn.Module):
     def __init__(
-        self, history_len, emb_channels
+        self, history_len, emb_channels, steps_per_day
     ):
         super().__init__()
-        self.time_stamp = nn.Embedding(24, emb_channels)
+        self.time_stamp = nn.Embedding(steps_per_day, emb_channels)
         # add temporal embedding and normalize
         self.tempral_enc = TempoEnc(history_len, emb_channels, True)
 
@@ -128,7 +128,7 @@ class TS2VecEncoderWrapper(nn.Module):
 
 class wo_memory(nn.Module):
     def __init__(self, num_nodes, adj_mx, history_len, in_dim, out_dim, residual_channels, dilation_channels,
-                 skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device):
+                 skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device, steps_per_day):
         super().__init__()
         self.device = device
         if adj_mx != None:
@@ -140,7 +140,7 @@ class wo_memory(nn.Module):
                             skip_channels=skip_channels, end_channels=end_channels, emb_channels=emb_channels,
                             blocks=blocks, layers=layers, dropout=dropout, gamma=gamma)
         self.encoder = TS2VecEncoderWrapper(encoder, mask='all_true').to(self.device)
-        self.stamp_emb = timestamp(history_len, emb_channels)
+        self.stamp_emb = timestamp(history_len, emb_channels, steps_per_day)
 
     def forward(self, x, stamp):
         time_emb = self.stamp_emb(stamp)

@@ -9,7 +9,7 @@ class ODGNetDataset(AbstractDataset):
     Single step forecasting is a special case of multi-step forecasting when set forecast_len=1.
     """
 
-    def __init__(self, data, history_len, forecast_len, type, *args, **kwargs):
+    def __init__(self, data, history_len, forecast_len, type, steps_per_day, *args, **kwargs):
         """
         Initialize the MultiStepForecastDataset.
 
@@ -35,7 +35,7 @@ class ODGNetDataset(AbstractDataset):
         T, N, C = data.shape
         time_stamp = np.zeros(T)
         for idx in range(T):
-            time_stamp[idx] = idx % (24)
+            time_stamp[idx] = idx % (steps_per_day)
 
         self.time_stamp = time_stamp
 

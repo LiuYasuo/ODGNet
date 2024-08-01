@@ -34,10 +34,10 @@ class TempoEnc(nn.Module):
 
 class timestamp(nn.Module):
     def __init__(
-        self, history_len, emb_channels
+        self, history_len, emb_channels, steps_per_day
     ):
         super().__init__()
-        self.time_stamp = nn.Embedding(24, emb_channels)
+        self.time_stamp = nn.Embedding(steps_per_day, emb_channels)
         # add temporal embedding and normalize
         self.tempral_enc = TempoEnc(history_len, emb_channels, True)
 
@@ -133,7 +133,7 @@ class TS2VecEncoderWrapper(nn.Module):
 
 
 class wo_trigger(nn.Module):
-    def __init__(self, num_nodes, adj_mx, history_len, in_dim, out_dim, residual_channels, dilation_channels, skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device):
+    def __init__(self, num_nodes, adj_mx, history_len, in_dim, out_dim, residual_channels, dilation_channels, skip_channels, end_channels, emb_channels, blocks, layers, dropout, gamma, device, steps_per_day):
         super().__init__()
         self.device = device
         if adj_mx != None:
@@ -142,11 +142,10 @@ class wo_trigger(nn.Module):
             supports = []
         encoder = TSEncoder(device, num_nodes, supports, history_len,in_dim =in_dim, out_dim=out_dim, residual_channels = residual_channels, dilation_channels = dilation_channels, skip_channels=skip_channels, end_channels=end_channels, emb_channels= emb_channels, blocks=blocks, layers=layers, dropout=dropout, gamma=gamma)
         self.encoder = TS2VecEncoderWrapper(encoder, mask='all_true').to(self.device)
-        self.stamp_emb = timestamp(history_len, emb_channels)
+        self.stamp_emb = timestamp(history_len, emb_channels, steps_per_day)
         self.line_stamp = nn.Linear(num_nodes, emb_channels)
     def forward(self, x, stamp):
         time_emb = self.stamp_emb(stamp)
-        #time_emb = self.line_stamp(x[:, :, :, 0:1].permute(0, 3, 1, 2)).permute(0, 2, 3, 1).squeeze(3)
         return self.encoder(x, time_emb)
 
     def store_grad(self):

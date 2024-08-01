@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-from scipy.optimize import linprog
-import scipy.sparse as sp
+
 
 from data_preprocessors.abs import AbstractDataPreprocessor
 
@@ -131,8 +130,10 @@ class ETTDataPreprocessor(AbstractDataPreprocessor):
         self.update_model_params["adj_mx"] = None#[self.asym_adj(R_adj), self.asym_adj(np.transpose(R_adj))]
         self.update_model_params["history_len"] = self.history_len
         self.update_model_params["out_dim"] = self.forecast_len
+        self.update_model_params["steps_per_day"] = self.steps_per_day
         self.update_dataset_params["history_len"] = self.history_len
         self.update_dataset_params["forecast_len"] = self.forecast_len
+        self.update_dataset_params["steps_per_day"] = self.steps_per_day
         self.update_trainer_params["forecast_len"] = self.forecast_len
 
         return preprocessed_data
