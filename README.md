@@ -10,7 +10,6 @@ Time series forecasting is integral to diverse fields, significantly influencing
 - python ~= 3.8.0
 - pytorch ~= 1.9.0
 - numpy ~= 1.21.2
-- yaml ~= 0.2.5
 - pyyaml ~= 6.0
 - tqdm ~= 4.61.2
 - pandas ~= 2.0.3
