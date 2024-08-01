@@ -1,4 +1,4 @@
-# Learning Dynamic Variable Association for Online Time Series Forecasting
+# ODGNet: Learning Dynamic Variable Association for Online Time Series Forecasting
 
 ## Introduction
 
