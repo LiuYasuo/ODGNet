@@ -33,7 +33,7 @@ sh ./scripts/odgnet.sh
 
 To replicate our results of OneNet-ODG run
 ```
-sh ./scripts/onenet-odg.sh
+sh ./scripts/onenet_odg.sh
 ```
 
 ### 3.  Arguments
@@ -43,7 +43,7 @@ sh ./scripts/onenet-odg.sh
 - wo_memory: ODGNet without graph memory module
 - wo_trigger: ODGNet sharing the same trigger with FSNet.
 - odgnet: the proposed ODGNet framework
-- onenet-odg: the ensemble of  ODGNet and FSNet by OneNet
+- onenet_odg: the ensemble of  ODGNet and Time-FSNet by OneNet
 
 
 You can specify one of the above method via the ```--model_name``` argument. Please also modify the model name in the ```ODGNet_model_config.yaml``` file accordingly
