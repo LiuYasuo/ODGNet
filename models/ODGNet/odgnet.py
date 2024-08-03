@@ -91,7 +91,7 @@ class TSEncoder(nn.Module):
                                     kernel_size=(1, 1),
                                     bias=True)
 
-        self.reduce_stamp = nn.Linear(history_len, 1, bias=False)  # 平均
+        self.reduce_stamp = nn.Linear(history_len, 1, bias=False)
         self.temp_1 = nn.Linear(emb_channels, kt + 1)
         self.kt = kt
 
@@ -99,7 +99,6 @@ class TSEncoder(nn.Module):
     def forward(self, x, time_emb, mask):
         adp = F.softmax(F.relu(torch.mm(self.nodevec1, self.nodevec2)), dim=1)
         supports = self.supports + [adp]
-        #生成矩阵多项式系数
         x = x.transpose(1, 2)
         period_emb = self.reduce_stamp(time_emb.permute(0, 2, 1)).squeeze(2)
         temp_1 = self.temp_1(period_emb)

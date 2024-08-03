@@ -76,7 +76,7 @@ class SamePadConv(nn.Module):
     def __init__(self, in_channels, out_channels, skip_channels, kt, supports_len, kernel_size, dropout, dilation=1, groups=1, gamma=0.9):
         super().__init__()
         self.receptive_field = (kernel_size - 1) * dilation + 1
-        #padding = self.receptive_field // 2 暂时去掉
+        #padding = self.receptive_field // 2
 
         self.kt = kt
         self.conv = nn.Conv2d(
@@ -119,7 +119,7 @@ class SamePadConv(nn.Module):
         self.W = nn.Parameter(torch.empty(dim, 32), requires_grad=False)
         nn.init.xavier_uniform_(self.W.data)
         self.W.data = normalize(self.W.data)
-        #图存储
+        #graph memory
         self.GW = nn.Parameter(torch.empty(self.kt + 1, 32), requires_grad=False)
         nn.init.xavier_uniform_(self.GW.data)
         self.GW.data = normalize(self.GW.data)
@@ -221,11 +221,11 @@ class SamePadConv(nn.Module):
             ww = torch.index_select(self.GW, 1, idx)
             idx = idx.unsqueeze(1).float()
 
-            old_w = ww @ vv  # 改，原idx
+            old_w = ww @ vv
             # write memory
             s_att = torch.zeros(att.size(0)).cuda()
             s_att[idx.squeeze().long()] = v.squeeze()
-            W = q.unsqueeze(1) @ s_att.unsqueeze(0)  # 改
+            W = q.unsqueeze(1) @ s_att.unsqueeze(0)
             mask = torch.ones(W.size()).cuda()
             mask[:, idx.squeeze().long()] = self.tau2
             self.GW.data = mask * self.GW.data + (1 - mask) * W

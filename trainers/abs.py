@@ -115,7 +115,7 @@ class AbstractTrainer(ABC):
             print(f"Epoch {epoch} / {self.max_epoch_num}")
             self.save_checkpoint()
             # train
-            train_loss = self.train_one_epoch(train_data_loader)  # 训练一个epoch
+            train_loss = self.train_one_epoch(train_data_loader)
             self.epoch_now += 1
             print(f"Train loss: {train_loss:.4f}")
             # evaluate
@@ -142,7 +142,7 @@ class AbstractTrainer(ABC):
 
         copyfile(tmp_state_save_path, self.model_save_path)
         os.remove(tmp_state_save_path)
-        epoch_result_json = self._save_epoch_result(epoch_result_list)  # 保存epoch结果
+        epoch_result_json = self._save_epoch_result(epoch_result_list)
         return epoch_result_json
 
     def test(self, test_data_loader, metrics=("mae", "rmse", "mape"), *args, **kwargs):

@@ -60,7 +60,7 @@ class SamePadConv(nn.Module):
     def __init__(self, in_channels, out_channels, skip_channels, supports_len, kernel_size, dropout, dilation=1, groups=1, gamma=0.9):
         super().__init__()
         self.receptive_field = (kernel_size - 1) * dilation + 1
-        #padding = self.receptive_field // 2 暂时去掉
+        #padding = self.receptive_field // 2
 
 
         self.conv = nn.Conv2d(
